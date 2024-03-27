@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="container d-flex align-items-center justify-content-center">
+      <form id="form" class="bg-light p-5">
+        <h1 class="mb-4">Sign in</h1>
+        <div class="form-floating mb-4">
+          <input
+            class="form-control shadow-none rounded-pill py-0 px-4"
+            type="text"
+            id="username"
+            placeholder="Your Email / Username"
+            name="username"
+          />
+          <label class="p-1" for="username">Your Email / Username </label>
+          <div id="user-validation" class="validation d-none text-danger ps-4">
+            username required
+          </div>
+        </div>
+        <div class="form-floating mb-4">
+          <input
+            class="password form-control shadow-none rounded-pill py-0 px-4"
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            name="password"
+          />
+
+          <label class="p-1" for="password">Enter Password </label>
+          <div id="pass-validation" class="validation d-none text-danger ps-4">
+            password required
+          </div>
+        </div>
+
+        <div id="api-validation" class="text-danger mb-1"></div>
+        <div class="location mb-1">
+          You Didn't Have Email Just
+          <a href="./register.html">Register</a>
+        </div>
+
+        <input
+          class="submit pointer border-0 py-2 w-100 text-white rounded-pill"
+          type="submit"
+          value="login"
+        />
+      </form>
+    </div>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/loginAndRegister.js"></script>
+  </body>
+</html>
