@@ -222,3 +222,33 @@ async def get_score(auth_token: str):
     finally:
         db.commit()
         db.close()
+
+
+@app.get("/get-users")
+async def get_users():
+    try:
+        db = sqlite3.connect("./sql_education.db")
+        cursor = db.cursor()
+
+        create_table_query = "SELECT * FROM users"
+
+        cursor.execute(create_table_query)
+
+        data = cursor.fetchall()
+
+        result = []
+
+        for user in data:
+            result.append(
+                {
+                    "id": user[0],
+                    "username": user[1],
+                    "password": user[2],
+                    "score": user[3],
+                }
+            )
+        return result
+
+    finally:
+        db.commit()
+        db.close()
