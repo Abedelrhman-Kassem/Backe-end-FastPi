@@ -3,7 +3,7 @@ const header = `
     <div class="container-fluid container-xl px-md-0">
         <a class="navbar-brand text-white fs-5 fw-bold" href="/"
             ><img
-            src="/images/sql-logo.png"
+            src="../images/sql-logo.png"
             alt="sql-logo"
             class="sql-logo d-block d-md-none d-xl-block"
         /></a>
@@ -54,7 +54,7 @@ const header = `
                             >
                         </li>
                         <li>
-                            <a class="dropdown-item text-dark fs-5 fw-bold" href="/view/modules/module-2.html"
+                            <a class="dropdown-item text-dark fs-5 fw-bold" href="../view/modules/module-2.html"
                             >الوحده الثانيه</a
                             >
                         </li>

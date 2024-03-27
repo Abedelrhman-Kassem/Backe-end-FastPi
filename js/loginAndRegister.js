@@ -4,7 +4,7 @@ const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 
 if (localStorage.getItem("Authentication")) {
-  location.href = "./test.html";
+  location.href = "test.html";
 }
 
 form.addEventListener("submit", (e) => {

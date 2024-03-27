@@ -15,6 +15,6 @@ export async function getScore(auth_token) {
     return responseData;
   } catch (error) {
     console.log(error.message);
-    location.href = "/view/login.html";
+    location.href = "view/login.html";
   }
 }
