@@ -1,4 +1,4 @@
-import { getScore } from "/Frontend/js/main-api.js";
+import { getScore } from "/js/main-api.js";
 
 const asideLinks = document.querySelectorAll(".aside-button");
 const asideSections = document.querySelectorAll(".aside-section");

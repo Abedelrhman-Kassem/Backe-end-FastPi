@@ -1,4 +1,4 @@
-const baseUrl = "http://127.0.0.1:8000/";
+const baseUrl = "https://backe-end-fastpi.onrender.com/";
 const form = document.getElementById("form");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");

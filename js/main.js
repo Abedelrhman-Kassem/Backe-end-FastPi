@@ -1,4 +1,4 @@
-import { getScore } from "/Frontend/js/main-api.js";
+import { getScore } from "/js/main-api.js";
 
 async function fetchScore() {
   try {
@@ -11,11 +11,11 @@ async function fetchScore() {
       typeof score.score !== "number" ||
       !localStorage.getItem("Authentication")
     ) {
-      location.href = "/Frontend/view/login.html";
+      location.href = "/view/login.html";
     }
   } catch (error) {
     console.error("Error fetching score:", error);
-    // location.href = "/Frontend/view/test.html";
+    // location.href = "/view/test.html";
   }
 }
 fetchScore();

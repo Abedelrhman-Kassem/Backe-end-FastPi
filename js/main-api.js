@@ -1,7 +1,7 @@
 export async function getScore(auth_token) {
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/get-score?auth_token=${auth_token}`
+      `https://backe-end-fastpi.onrender.com/get-score?auth_token=${auth_token}`
     );
 
     if (!response.ok) {
@@ -15,6 +15,6 @@ export async function getScore(auth_token) {
     return responseData;
   } catch (error) {
     console.log(error.message);
-    location.href = "/Frontend/view/login.html";
+    location.href = "/view/login.html";
   }
 }

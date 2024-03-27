@@ -1,9 +1,9 @@
 const header = `
 <nav class="navbar navbar-expand-md py-0 bg-main-color">
     <div class="container-fluid container-xl px-md-0">
-        <a class="navbar-brand text-white fs-5 fw-bold" href="/Frontend/"
+        <a class="navbar-brand text-white fs-5 fw-bold" href="/"
             ><img
-            src="/Frontend/images/sql-logo.png"
+            src="/images/sql-logo.png"
             alt="sql-logo"
             class="sql-logo d-block d-md-none d-xl-block"
         /></a>
@@ -28,7 +28,7 @@ const header = `
                     <a
                     class="nav-link active text-white fs-5 fw-bold"
                     aria-current="page"
-                    href="/Frontend/"
+                    href="/"
                     >الصفحه الرئيسيه</a
                     >
                 </li>
@@ -54,7 +54,7 @@ const header = `
                             >
                         </li>
                         <li>
-                            <a class="dropdown-item text-dark fs-5 fw-bold" href="/Frontend/view/modules/module-2.html"
+                            <a class="dropdown-item text-dark fs-5 fw-bold" href="/view/modules/module-2.html"
                             >الوحده الثانيه</a
                             >
                         </li>

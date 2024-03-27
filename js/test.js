@@ -1,6 +1,6 @@
-import { getScore } from "/Frontend/js/main-api.js";
+import { getScore } from "/js/main-api.js";
 
-const baseUrl = "http://127.0.0.1:8000/";
+const baseUrl = "https://backe-end-fastpi.onrender.com/";
 const auth_token = JSON.parse(localStorage.getItem("Authentication"));
 let questionNum = 0;
 let questionsCount;
@@ -15,7 +15,7 @@ async function fetchScore() {
     const score = await getScore(auth_token);
     console.log(score);
     if (typeof score.score === "number") {
-      location.href = "/Frontend/";
+      location.href = "/";
     }
   } catch (error) {
     console.error("Error fetching score:", error);
@@ -43,7 +43,7 @@ submitBtn.addEventListener("click", async () => {
 
     await submitScore(baseUrl, data);
     localStorage.setItem("score", score);
-    location.href = "/Frontend";
+    location.href = "/";
   }
 });
 
