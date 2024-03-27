@@ -7,9 +7,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-origins = [
-    "http://127.0.0.1:5500",
-]
+origins = ["http://127.0.0.1:5500", "https://abedelrhman-kassem.github.io"]
 
 app.add_middleware(
     CORSMiddleware,
