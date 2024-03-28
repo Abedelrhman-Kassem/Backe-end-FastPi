@@ -1,5 +1,6 @@
 import sqlite3
 import uuid
+from difflib import get_close_matches
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -127,12 +128,12 @@ async def get_question(question_id: int):
 
 # return questions with limit, offset and if the limit, offset is not given return all the questions
 @app.get("/questions")
-async def get_question(limit: int | None = None, offset: int | None = None):
+async def get_questions(limit: int | None = None, offset: int | None = None):
     try:
         db = sqlite3.connect("./sql_education.db")
         cursor = db.cursor()
 
-        create_table_query = f"SELECT * FROM testing_questions"
+        create_table_query = "SELECT * FROM testing_questions"
 
         if limit:
             create_table_query += f" LIMIT {limit}"
@@ -213,7 +214,6 @@ async def get_score(auth_token: str):
         cursor.execute(create_table_query)
 
         data = cursor.fetchone()
-
         if not data:
             raise HTTPException(status_code=401, detail="Not Authorized")
 
@@ -224,31 +224,102 @@ async def get_score(auth_token: str):
         db.close()
 
 
-@app.get("/get-users")
-async def get_users():
+@app.get("/get-user")
+async def get_user(auth_token: str):
     try:
         db = sqlite3.connect("./sql_education.db")
         cursor = db.cursor()
 
-        create_table_query = "SELECT * FROM users"
+        create_table_query = f"SELECT name FROM users WHERE auth_token = '{auth_token}'"
 
         cursor.execute(create_table_query)
 
-        data = cursor.fetchall()
+        data = cursor.fetchone()
 
-        result = []
+        if not data:
+            raise HTTPException(status_code=401, detail="Not Authorized")
 
-        for user in data:
-            result.append(
-                {
-                    "id": user[0],
-                    "username": user[1],
-                    "password": user[2],
-                    "score": user[3],
-                }
-            )
-        return result
+        return {"name": data[0]}
 
     finally:
+        db.close()
+
+
+# chat bot
+class ChatBotFields(BaseModel):
+    question: str
+    answer: str | None
+
+
+@app.post("/chatbot")
+async def chat_bot(user_data: ChatBotFields):
+    try:
+        question = find_best_match(user_data.question)
+
+        if user_data.answer:
+            save_knowledge_base(user_data.model_dump(), "./sql_education.db")
+            return "Thank you for teaching me"
+
+        if question == None:
+            raise HTTPException(
+                status_code=404,
+                detail="Sorry, I don't know the answer to that question. Can you teach me the answer",
+            )
+
+        answer = get_answer_for_question(question)
+
+        return answer
+
+    finally:
+        pass
+
+
+def save_knowledge_base(data: dict, file_path: str) -> None:
+    try:
+        db = sqlite3.connect(file_path)
+        cursor = db.cursor()
+
+        cursor.execute(
+            "INSERT INTO chatbot (question, answer) VALUES (?, ?)",
+            (data["question"], data["answer"]),
+        )
+
         db.commit()
+    except Exception as e:
+        print(e)
+    finally:
+        db.close()
+
+
+def find_best_match(user_question: str) -> str | None:
+    try:
+        db = sqlite3.connect("./sql_education.db")
+        cursor = db.cursor()
+
+        cursor.execute("select question from chatbot")
+
+        data = cursor.fetchall()
+        questions = [item[0] for item in data]
+
+        matches: list = get_close_matches(user_question, questions, n=3, cutoff=0.7)
+        return matches[0] if matches else None
+    except Exception as e:
+        print(e)
+    finally:
+        db.close()
+
+
+def get_answer_for_question(question: str) -> str | None:
+    try:
+        db = sqlite3.connect("./sql_education.db")
+        cursor = db.cursor()
+
+        cursor.execute("select answer from chatbot where question = ?", (question,))
+
+        data = cursor.fetchone()
+
+        return data[0]
+    except Exception as e:
+        print(e)
+    finally:
         db.close()
